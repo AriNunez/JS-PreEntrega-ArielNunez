@@ -1,128 +1,132 @@
 //  -----CLASES-----
 class Producto
 {
-    constructor(nombre,descripcion,precio,cantidadEnStock,categoria)
+    constructor(id,nombre,descripcion,precio,categoria,urlImagen)
     {
+        this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.cantidadEnStock = cantidadEnStock;
         this.categoria = categoria;
-        // atributos o propiedas para agregar más adelante
-        // id
-        // urlImagen
+        this.urlImagen = urlImagen;
     }
 
-    ModificarStock(stock) 
-    {
-        if(!isNaN(stock))
-        {
-            this.cantidadEnStock += stock
-            if(this.cantidadEnStock < 0)
-            {
-                this.cantidadEnStock = 0;
-            }
-        }
-    }
+    // ModificarStock(stock) 
+    // {
+    //     if(!isNaN(stock))
+    //     {
+    //         this.cantidadEnStock += stock
+    //         if(this.cantidadEnStock < 0)
+    //         {
+    //             this.cantidadEnStock = 0;
+    //         }
+    //     }
+    // }
 }
 
 // ----- CONSTANTES Y VARIABLES GLOBALES -----
 const categorias = ["Placa de Video","Procesador","Memoria RAM","Almacenamiento"]
 
-const productos = [new Producto("PLACA VIDEO GEFORCE RTX 3060 TI 8GB MSI GAMING X","Placa de video 3060ti",212000.00,5,categorias[0]),
-                    new Producto("PROCESADOR AMD RYZEN 5 3600 AM4","Procesador AMD RYZEN 3600", 51000.00,3,categorias[1])]
+const productos = [new Producto(1,"PLACA VIDEO GEFORCE RTX 3060 TI 8GB MSI GAMING X",`VIDEO GEFORCE RTX 3060 TI 8GB MSI GAMING X`,212000.00,categorias[0],"./Media/rtx3060ti8gbmsi.jpg"),
+                    new Producto(2,"PLACA VIDEO GEFORCE RTX 3080 10GB GIGABYTE VISION OC",`VIDEO GEFORCE RTX 3080 10GB GIGABYTE VISION OC`,331000.0,categorias[0],"./Media/rtx308010gbgiga.jpg"),
+                    new Producto(3,"PLACA VIDEO GEFORCE RTX 3050 8GB GIGABYTE EAGLE OC",`VIDEO GEFORCE RTX 3050 8GB GIGABYTE EAGLE OC`,190000.00,categorias[0],"./Media/rtx30508gbgiga.jpg"),
+                    new Producto(4,"PROCESADOR AMD RYZEN 5 4600G AM4",`PROCESADOR AMD RYZEN 5 4600G AM4`,90000.00,categorias[1],"./Media/amdr54600g.jpg")];
+
+let carrito = [];
+
+const botonVaciarCarrito = document.getElementById("boton-vaciar-carrito");
+botonVaciarCarrito.addEventListener("click", () => {
+    localStorage.clear();
+    carrito = [];
+    renderizarCarrito();
+})
 
 // ----- FUNCIONES -----
-const listarProductos = (productos) => { let mensaje = "LISTA DE PRODUCTOS:";
-    for (let i = 0; i < productos.length; i++) {
-        mensaje += `\n ${i}. ${productos[i].nombre} \n ${productos[i].descripcion} \n $ ${productos[i].precio} \n Stock: ${productos[i].cantidadEnStock} \n Categoria: ${productos[i].categoria} \n`;
-    }
-    return mensaje;
-}
 
-const listarCategorias = () => { let mensaje = "";
-    for (let i = 0; i < categorias.length; i++) {
-        mensaje += `${i}. ${categorias[i]}\n`        
-    }
-    return mensaje;
-}
-
-const agregarProducto = (productos,mostrarCategorias) => { let nombre = prompt("Ingrese el nombre del producto:");
-    let descripcion = prompt("Ingrese la descripcion del producto:");
-    let precio = parseFloat(prompt("Ingrese el precio del producto:"));
-    let stock = parseInt(prompt("Ingrese el stock del producto:"));
-    let categoria = parseInt(prompt("Seleccione la categoria del producto:\n" + mostrarCategorias()));
-
-    if(!isNaN(categoria) && categoria >= 0 && categoria < productos.length)
-    {
-        productos.push(new Producto(nombre,descripcion,precio,stock,categorias[categoria]));
-    }
-    else
-    {
-        alert("Error al agregar producto");
-    }
-}
-
-function modificarStock()
+function renderizarProductos()
 {
-    let productoAModificar = parseInt(prompt("Seleccione el producto a modificar:\n" + listarProductos(productos)));
-    let stock;
+    let conjuntoProductos = document.getElementById("conjunto-productos");
 
-    if(!isNaN(productoAModificar) && productoAModificar >= 0 && productoAModificar < productos.length)
-    {
-        stock = parseInt(prompt("Ingrese la cantidad de stock para sumar o restar (números positivos para sumar y negativos para restar):"));
-        if(!isNaN(stock))
-        {
-            productos[productoAModificar].ModificarStock(stock);
-        }
-        else
-        {
-            alert("Valor ingresado invalido");
-        }
-    }
-    else
-    {
-        alert("Valor ingresado invalido");
-    }
+    productos.forEach(producto => {
+
+        let divProducto = document.createElement("div");
+        let boton;
+
+        divProducto.innerHTML = `
+        <div class="card m-3" style="width: 18rem;">
+        <img src="${producto.urlImagen}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${producto.nombre}</h5>
+          <p class="card-text">${producto.descripcion}</p>
+          <p class="card-text">$${producto.precio}</p>
+          <a class="btn btn-primary" id="${producto.id}">Agregar</a>
+        </div>
+      </div>
+        `;
+
+        conjuntoProductos.appendChild(divProducto);
+        boton = document.getElementById(`${producto.id}`);
+        boton.addEventListener("click", () => {
+            agregarAlCarrito(producto.id);
+        })
+
+    })
 }
-function desplegarMenu()
+
+function renderizarCarrito()
 {
-    do 
+    let conjuntoCarrito = document.getElementById("conjunto-carrito");
+    let carritoStorage = localStorage.getItem("carrito");
+    
+    conjuntoCarrito.innerHTML = "";
+
+    if(carritoStorage != null)
     {
-        let opcion = prompt("Ingrese una opción:\n 1. Mostrar Productos \n 2. Agregar Producto \n 3. Modificar Stock de Producto \n 4. Filtrar Productos \n 0. Salir");
-        switch (opcion) {
-            case "1":
-                alert(listarProductos(productos));
-                desplegarMenu();
-                break;
+        carrito = JSON.parse(carritoStorage);
+    }
 
-            case "2":
-                agregarProducto(productos,listarCategorias);
-                desplegarMenu();
-                break;
-
-            case "3":
-                modificarStock();
-                desplegarMenu();
-                break;
-
-            case "4":
-                let filtro = prompt("Ingrese la palabra clave para realizar el filtrado:");
-                alert(listarProductos(productos.filter((item) => item.nombre.includes(filtro.toUpperCase()))));
-                desplegarMenu();
-                break;
-
-            case "0":
-                alert("Gracias por visitar nuestro sitio!");
-            break;
+    carrito.forEach(producto => {
         
-            default:
-                alert("Opción invalida. Vuelva a seleccionar");
-                desplegarMenu();
-                break;
-        }
-    } while (opcion !== "0");
-}
-productos.push(new Producto("PLACA VIDEO GEFORCE RTX 3060 TI 8GB MSI GAMING X","Placa de video 3060ti",212000.00,20,categorias[0]));
+        let divProducto = document.createElement("div");
 
-desplegarMenu();
+        divProducto.innerHTML = `
+        <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="${producto.urlImagen}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">${producto.nombre}</h5>
+              <p class="card-text">${producto.descripcion}</p>
+              <p class="card-text"><small class="text-muted">$${producto.precio}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+        `;
+
+        conjuntoCarrito.appendChild(divProducto);
+    })
+
+
+}
+
+function agregarAlCarrito(idProducto)
+{
+    let producto = productos.find(item => item.id === idProducto);
+
+    if(producto)
+    {
+        carrito.push(producto);
+    }
+    localStorage.setItem("carrito",JSON.stringify(carrito));
+
+    renderizarCarrito();
+}
+// ----- INICIO PROGRAMA -----
+
+renderizarProductos();
+renderizarCarrito();
+
+

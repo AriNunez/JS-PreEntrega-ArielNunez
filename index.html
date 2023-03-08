@@ -13,7 +13,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                  <a class="navbar-brand" href="#"><img src="https://picsum.photos/100" alt=""></a>
+                  <a class="navbar-brand" href="#"><img src="./Media/logo-momotech.png" alt="" id="logo-momotech"></a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -46,13 +46,13 @@
                 <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="https://picsum.photos/500/200" class="d-block w-100" alt="...">
+                        <img src="./Media/img-carrusel.jpg" class="d-block w-100" alt="...">
                       </div>
                       <div class="carousel-item">
-                        <img src="https://picsum.photos/500/200" class="d-block w-100" alt="...">
+                        <img src="./Media/img-carrusel.jpg" class="d-block w-100" alt="...">
                       </div>
                       <div class="carousel-item">
-                        <img src="https://picsum.photos/500/200" class="d-block w-100" alt="...">
+                        <img src="./Media/img-carrusel.jpg" class="d-block w-100" alt="...">
                       </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -66,22 +66,26 @@
                   </div>
             </section>
 
-            <section class="p-3">
+            <!-- <section class="p-3">
               <h1>Sobre Nosotros</h1>
               <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores at aliquam quas fugiat, tempora esse veritatis dolor, distinctio vel provident doloribus dolorem ipsa, natus enim nam minima magni veniam laboriosam eos ratione pariatur voluptatem? Non, debitis! Quam, sequi non, magnam dicta sed quis ullam dolorem sapiente quasi exercitationem corporis in!</p>
-            </section>
+            </section> -->
 
-            <section class="p-3">
+            <section class="p-3" id="seccion-productos">
               <h2>Productos</h2>
-              <div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, animi explicabo? Eaque nam iusto ducimus!</p></div>
-              <div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, animi explicabo? Eaque nam iusto ducimus!</p></div>
-              <div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, animi explicabo? Eaque nam iusto ducimus!</p></div>
+              <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center" id="conjunto-productos"></div>
             </section>
 
-            <section class="p-3">
+            <section class="p-3" id="seccion-carrito">
+              <h2>Carrito de Compra</h2>
+              <div class="row justify-content-center" id="conjunto-carrito"></div>
+              <button class="btn btn-primary" id="boton-vaciar-carrito">Vaciar Carrito</button>
+            </section>
+
+            <!-- <section class="p-3">
               <h2>Contacto</h2>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto vel, distinctio quas aliquam quibusdam sed.</p>
-            </section>
+            </section> -->
         </main>
 
         <footer class="pt-5">
