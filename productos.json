@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "nombre": "PLACA VIDEO GEFORCE RTX 3060 TI 8GB MSI GAMING X",
+    "descripcion": "VIDEO GEFORCE RTX 3060 TI 8GB MSI GAMING X",
+    "precio": 212000,
+    "urlImagen": "./Media/rtx3060ti8gbmsi.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "PLACA VIDEO GEFORCE RTX 3080 10GB GIGABYTE VISION OC",
+    "descripcion": "VIDEO GEFORCE RTX 3080 10GB GIGABYTE VISION OC",
+    "precio": 331000,
+    "urlImagen": "./Media/rtx308010gbgiga.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "PLACA VIDEO GEFORCE RTX 3050 8GB GIGABYTE EAGLE OC",
+    "descripcion": "VIDEO GEFORCE RTX 3050 8GB GIGABYTE EAGLE OC",
+    "precio": 190000,
+    "urlImagen": "./Media/rtx30508gbgiga.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "PROCESADOR AMD RYZEN 5 4600G AM4",
+    "descripcion": "PROCESADOR AMD RYZEN 5 4600G AM4",
+    "precio": 90000,
+    "urlImagen": "./Media/amdr54600g.jpg"
+  }
+]
